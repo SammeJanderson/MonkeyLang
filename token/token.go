@@ -26,6 +26,8 @@ const (
 
     LT = "<"
     GT = ">"
+    EQ = "=="
+    NOT_EQ = "!="
 
     // demiliters
     COMMA = ","
