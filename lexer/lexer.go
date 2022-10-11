@@ -29,7 +29,7 @@ func (l *Lexer) readChar() {
 
 func (l *Lexer)  NextToken() token.Token {
     var tok token.Token
-     l.skipWhiteSpace()
+    l.skipWhiteSpace()
 
     switch l.ch {
     case '=':
@@ -73,7 +73,7 @@ func (l *Lexer)  NextToken() token.Token {
     case  '>':
         tok = newToken(token.GT, l.ch)
     case 0:
-        tok.Literal = " "
+        tok.Literal = ""
         tok.Type = token.EOF
     default:
         if isLetter(l.ch) {
