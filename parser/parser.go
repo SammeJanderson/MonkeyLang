@@ -1,10 +1,11 @@
 package parser
 
 import (
-    "fmt"
+	"fmt"
 	"monkey/ast"
 	"monkey/lexer"
 	"monkey/token"
+	"strconv"
 )
 
 const (
@@ -39,12 +40,14 @@ func New(l *lexer.Lexer) *Parser {
         errors: []string{},
     }
 
+    p.prefixParseFns = make(map[token.TokenType]prefixParseFn)
+    p.registerPrefix(token.IDENT, p.parseIdentifier)
+    p.registerPrefix(token.INT, p.parseIntergerLiteral)
+
     // read two tokens so curToken and peekToken are set
     p.nextToken()
     p.nextToken()
 
-    p.prefixParseFns = make(map[token.TokenType]prefixParseFn)
-    p.registerPrefix(token.IDENT, p.parseIdentifier)
 
     return p
 }
@@ -81,6 +84,21 @@ func (p *Parser) parseStatement() ast.Statement {
     default:
         return p.parserExpressionStatement()
     }
+}
+
+func (p *Parser) parseIntergerLiteral() ast.Expression {
+    lit := &ast.IntergerLiteral{Token: p.curToken}
+
+    value, err := strconv.ParseInt(p.curToken.Literal, 0, 64)
+    if err != nil {
+        msg := fmt.Sprintf("could not parse %q as a interger", p.curToken.Literal)
+        p.errors = append(p.errors, msg)
+        return nil
+    }
+
+    lit.Value = value
+
+    return lit
 }
 
 func (p *Parser) parserExpressionStatement() *ast.ExpressionStatement {
@@ -127,6 +145,7 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
         p.nextToken()
     }
 
+    // TODO: fix this 
     p.nextToken()
 
     return stmt
