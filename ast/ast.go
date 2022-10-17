@@ -223,7 +223,7 @@ type FunctionLiteral struct {
 }
 
 func (fl *FunctionLiteral) expressionNode() {}
-func (fl *FunctionLiteral) TokenLiteral() string {return fl.Token.Literal }
+func (fl *FunctionLiteral) TokenLiteral() string { return fl.Token.Literal }
 func (fl *FunctionLiteral) String() string {
     var out bytes.Buffer
 
@@ -242,5 +242,28 @@ func (fl *FunctionLiteral) String() string {
 }
 
 
+type CallExpressions struct {
+    Token token.Token
+    Function Expression
+    Arguments []Expression
+}
+
+func (ce *CallExpressions) expressionNode() {}
+func (ce *CallExpressions) TokenLiteral() string { return ce.Token.Literal }
+func (ce *CallExpressions) String() string {
+    var out bytes.Buffer
+
+    args := []string{}
+    for _, a := range ce.Arguments {
+        args = append(args, a.String())
+    }
+
+    out.WriteString(ce.Function.String())
+    out.WriteString("(")
+    out.WriteString(strings.Join(args, ", ") )
+    out.WriteString(")")
+
+    return out.String()
+}
 
 
