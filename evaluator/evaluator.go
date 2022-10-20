@@ -16,19 +16,22 @@ func Eval(node ast.Node) object.Object {
 
     case *ast.IntergerLiteral:
         return &object.Integer{Value: node.Value}
+
+    case *ast.Boolean:
+        return &object.Boolean{Value: node.Value}
     }
+
 
     return nil
 }
 
 
 func evalStatements(stmts []ast.Statement) object.Object {
-var result object.Object
+    var result object.Object
 
-for _, statement := range stmts {
-result = Eval(statement)
-}
+    for _, statement := range stmts {
+        result = Eval(statement)
+    }
 
-return result
-
+    return result
 }
