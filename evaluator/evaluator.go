@@ -3,7 +3,7 @@ package evaluator
 import (
 	"monkey/ast"
 	"monkey/object"
-    "monkey/token"
+	"monkey/token"
 )
 
 var (
@@ -39,22 +39,32 @@ func evalPrefixExpression(operator string, right object.Object) object.Object {
     switch operator {
         case  token.BANG:
             return evalBangOperatorExpression(right)
+        case token.MINUS:
+            return evalMinusOperatorExpression(right)
         default:
             return NULL
     }
 }
 
 func evalBangOperatorExpression(right object.Object) object.Object {
-switch right {
+    switch right {
     case TRUE:
         return FALSE
     case FALSE:
-return TRUE
+        return TRUE
     case NULL:
         return TRUE
     default:
         return FALSE
+}
+}
+
+func evalMinusOperatorExpression(right object.Object) object.Object {
+    if right.Type() != object.INTEGER_OBJ {
+        return NULL
     }
+    value := right.(*object.Integer).Value
+    return &object.Integer{Value: -value}
 }
 
 func evalStatements(stmts []ast.Statement) object.Object {
