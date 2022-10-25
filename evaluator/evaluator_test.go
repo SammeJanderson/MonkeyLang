@@ -190,11 +190,12 @@ func TestEvalIntegerExpression(t *testing.T) {
 }
 
 func testEval(input string) object.Object {
+    env := object.NewEnviroment()
     l := lexer.New(input)
     p := parser.New(l)
     program := p.ParseProgram()
 
-    return Eval(program)
+    return Eval(program, env)
 }
 
 func testIntegerObject(t *testing.T, obj object.Object, expected int64) bool {
@@ -236,3 +237,4 @@ func TestReturnStatement(t *testing.T) {
         testIntegerObject(t, evaluated, tt.expected)
     }
 }
+

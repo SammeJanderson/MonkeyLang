@@ -19,6 +19,7 @@ type Object interface {
     Inspect() string
 }
 
+
 type Integer struct {
     Value int64
 }
@@ -63,4 +64,25 @@ type Error struct {
 
 func (e *Error) Type() ObjectType { return ERROR_OBJ}
 func (e *Error) Inspect() string { return "ERROR: " + e.Message}
+
+
+type Enviroment struct {
+    store map[string]Object
+}
+
+func NewEnviroment() *Enviroment {
+    s := make(map[string]Object)
+    return &Enviroment{store: s}
+}
+
+func (e *Enviroment) Get(name string) (Object, bool) {
+    obj, ok := e.store[name]
+    return obj, ok
+}
+
+func (e *Enviroment) Set(name string, val Object) Object {
+    e.store[name] = val
+    return val
+}
+
 
