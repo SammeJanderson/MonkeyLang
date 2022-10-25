@@ -176,7 +176,7 @@ func evalBlockStatement(block *ast.BlockStatement) object.Object {
 
         if result != nil {
             rt := result.Type()
-            if rt == object.RETURN_VALUE_OBJ || rt == object.INTEGER_OBJ{
+            if rt == object.RETURN_VALUE_OBJ || rt == object.ERROR_OBJ{
                 return result
             }
         }
