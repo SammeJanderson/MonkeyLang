@@ -152,8 +152,3 @@ func (l *Lexer) readString() string {
     return l.input[position:l.position]
 }
 
-
-
-
-
-
