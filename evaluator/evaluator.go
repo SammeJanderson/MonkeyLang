@@ -22,7 +22,7 @@ func Eval(node ast.Node, env *object.Enviroment) object.Object {
     case *ast.Identifier:
         return evalIdentifier(node, env)
 
-    case *ast.CallExpressions:
+    case *ast.CallExpression:
         function := Eval(node.Function, env)
 
         if isError(function) {

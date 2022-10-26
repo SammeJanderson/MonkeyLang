@@ -242,15 +242,15 @@ func (fl *FunctionLiteral) String() string {
 }
 
 
-type CallExpressions struct {
+type CallExpression struct {
     Token token.Token
     Function Expression
     Arguments []Expression
 }
 
-func (ce *CallExpressions) expressionNode() {}
-func (ce *CallExpressions) TokenLiteral() string { return ce.Token.Literal }
-func (ce *CallExpressions) String() string {
+func (ce *CallExpression) expressionNode() {}
+func (ce *CallExpression) TokenLiteral() string { return ce.Token.Literal }
+func (ce *CallExpression) String() string {
     var out bytes.Buffer
 
     args := []string{}

@@ -415,7 +415,7 @@ func (p *Parser) parseFunctionParamenters() []*ast.Identifier {
 }
 
 func (p *Parser) parseCallExpression(function ast.Expression) ast.Expression {
-    exp := &ast.CallExpressions{Token: p.curToken, Function: function}
+    exp := &ast.CallExpression{Token: p.curToken, Function: function}
     exp.Arguments = p.parseCallArguments()
     return exp
 }

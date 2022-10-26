@@ -124,6 +124,8 @@ func (e *Enviroment) Set(name string, val Object) Object {
 
 func NewEnclosedEnviroment(outer *Enviroment) *Enviroment {
     env := NewEnviroment()
-    env.outer = env
+    env.outer = outer
     return env
 }
+
+
